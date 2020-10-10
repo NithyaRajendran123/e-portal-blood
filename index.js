@@ -9,8 +9,9 @@ var app = express();
 var mongoose = require('mongoose');
 var userModel = require('./models/user');
 
-const KEY = process.env.KEY;
-const dburi = "mongodb+srv://admin:admin@cluster0.ajn0t.mongodb.net/blood?retryWrites=true&w=majority";
+const KEY = 'MYKEY';
+const dburi =
+  'mongodb+srv://admin:admin@cluster0.ajn0t.mongodb.net/blood?retryWrites=true';
 const signature = {
   signed: KEY,
   maxAge: 2 * 24 * 60 * 60 * 1000,
@@ -27,7 +28,7 @@ mongoose.connect(
   (err) => {
     if (err) throw err;
     else console.log('Connected to mongoDb');
-  },
+  }
 );
 
 app.use(express.static('public/js'));
@@ -40,11 +41,80 @@ app.use(bodyParser.json());
 app.use(
   bodyParser.urlencoded({
     extended: true,
-  }),
+  })
 );
 
 app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, 'public/index.html'));
+});
+app.get('/admin', (req, res) => {
+  res.render('admin');
+});
+app.get('/adminpanel', (req, res) => {
+  // res.render('admin.ejs');
+  if (req.query.blood == undefined || req.query.blood == '')
+    req.query.blood = '(A|B|O|AB)';
+
+  if (req.query.rh != undefined) req.query.blood += escapeRegExp(req.query.rh);
+  else req.query.blood += '[\\+-]';
+
+  if (req.query.city == undefined) req.query.city = '';
+
+  var page = req.query.page;
+  if (page === undefined || page < 1) page = 1;
+
+  var query = {
+    $and: [
+      { bloodGroup: { $regex: req.query.blood, $options: 'i' } },
+      { city: { $regex: req.query.city, $options: 'i' } },
+    ],
+  };
+
+  userModel.find(
+    query,
+    null,
+    {
+      sort: {
+        amount: -1,
+      },
+      limit: 10000,
+      skip: (page - 1) * 18,
+    },
+    function (err, docs) {
+      if (err) res.send(err);
+      res.render('adminpanel', { docs: docs });
+    }
+  );
+});
+
+app.get('/adminpanel/delete/:id', (req, res) => {
+  userModel.findOneAndRemove(
+    {
+      _id: req.params.id,
+    },
+    function (err, user) {
+      if (err) throw err;
+
+      console.log('Success' + user);
+    }
+  );
+
+  res.redirect('/adminpanel');
+});
+
+app.get('/adminpanel/delete/:id', (req, res) => {
+  userModel.findOneAndRemove(
+    {
+      _id: req.params.id,
+    },
+    function (err, user) {
+      if (err) throw err;
+
+      console.log('Success' + user);
+    }
+  );
+
+  res.redirect('/adminpanel');
 });
 
 app.get('/register', (req, res) => {
@@ -88,7 +158,7 @@ app.post('/donate', (req, res) => {
     res.redirect('back');
     return;
   }
-  userModel.findOne({ phone: req.signedCookies.user }, function(err, user) {
+  userModel.findOne({ phone: req.signedCookies.user }, function (err, user) {
     if (err) res.send(err);
     if (!user) {
       res.redirect('/logout');
@@ -122,7 +192,7 @@ app.get('/donate', (req, res) => {
           debug(
             user.createdAt,
             user.updatedAt,
-            user.createdAt - user.updatedAt,
+            user.createdAt - user.updatedAt
           );
           res.render('donate', {
             user: {
@@ -179,10 +249,10 @@ app.get('/bank', (req, res) => {
       limit: 18,
       skip: (page - 1) * 18,
     },
-    function(err, docs) {
+    function (err, docs) {
       if (err) res.send(err);
       res.render('bank', { docs: docs, logged: req.signedCookies.user });
-    },
+    }
   );
 });
 

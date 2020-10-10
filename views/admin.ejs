@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta http-equiv="X-UA-Compatible" content="ie=edge">
+		<meta name="Description"
+			content="Author: Rishav Rungta, Purpose: I made this site as a larning project and will try and use react soon.">
+		<title>BloodBank</title>
+
+		<!-- Compiled latest Css -->
+		<link rel="stylesheet" href="materialize.min.css" />
+
+		<!--Import Google Icon Font-->
+		<link href="icon.css" rel="stylesheet" />
+
+		<link rel="stylesheet" href="admin.css">
+
+	</head>
+
+	<body>
+
+</head>
+<body>
+<!-- <nav class="navbar navbar-expand-lg navbar-dark bg-danger">
+  <a class="navbar-brand" href="#">Navbar</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+  </div>
+</nav> -->
+<nav class="mynav">
+			<div class="nav-wrapper container"><img class="brand-logo" src="bbi-logo.png" alt="Universe">
+				<a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+				<ul id="nav-mobile" class="right hide-on-med-and-down">
+					<li><a class="btn transparent" href="/donate">Blood Bank</a></li>
+					<!-- <li><a class="btn transparent" href="/bank">Search Donors</a></li> -->
+				</ul>
+			</div>
+</nav>
+        <div class="login-form">
+            <form action="/examples/actions/confirmation.php" method="post">
+                <h5 class="text-center">Admin</h5>  
+                <h3 class="text-center">Log in</h3>       
+                <div class="form-group">
+                    <input type="text" class="form-control" placeholder="Username" required="required">
+                </div>
+                <div class="form-group">
+                    <input type="password" class="form-control" placeholder="Password" required="required">
+                </div>
+                <div class="form-group">
+                    <button type="submit" class="btn btn-danger btn-block">Log in</button>
+                </div>
+                <!-- <div class="clearfix">
+                    <label class="float-left form-check-label"><input type="checkbox"> Remember me</label>
+                    <a href="#" class="float-right">Forgot Password?</a>
+                </div>         -->
+            </form>
+            <!-- <p class="text-center"><a href="#">Create an Account</a></p> -->
+        </div>
+		<!--Import Font Awesome-->
+		<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css"
+			integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+        </link>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+        <link rel="stylesheet" href="materialize.min.css" />
+        <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+
+		<%- include footer.ejs %>
+
+		<script src="jquery.min.js"></script>
+		<script src="materialize.min.js"></script>
+		<script src="bank.js"></script>
+	</body>
+
+</html>
