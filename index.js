@@ -45,11 +45,36 @@ app.use(
 );
 
 app.get('/', (req, res) => {
-  res.sendFile(path.join(__dirname, 'public/index.html'));
+  // res.sendFile(path.join(__dirname, 'public/index.html'));
+  if (req.signedCookies.user == null) {
+    res.render('index', { logged: false });
+    return;
+  }
+  res.render('index', { logged: req.signedCookies.user });
 });
+
 app.get('/admin', (req, res) => {
+  if (req.signedCookies.admin) {
+    res.redirect('/adminpanel');
+    return;
+  }
   res.render('admin');
 });
+
+app.get('/adminlogout', (req, res) => {
+  res.clearCookie('admin');
+  res.redirect('admin');
+});
+
+app.post('/admin', (req, res) => {
+  if (req.body.password.toLowerCase() == 'admin') {
+    res.cookie('admin', 'admin', signature);
+    res.redirect('/adminpanel');
+    return;
+  }
+  res.send('invalid credentials');
+});
+
 app.get('/adminpanel', (req, res) => {
   // res.render('admin.ejs');
   if (req.query.blood == undefined || req.query.blood == '')
@@ -132,6 +157,8 @@ app.post('/register', (req, res) => {
           bloodGroup: req.body.blood.toUpperCase() + req.body.rh,
           city: req.body.city.toUpperCase(),
           phone: req.body.phone,
+          email: req.body.email,
+          password: req.body.password,
           amount: req.body.amount || 0,
           address: req.body.address,
         })
@@ -143,6 +170,27 @@ app.post('/register', (req, res) => {
           .catch((err) => {
             res.send(err.message + '\nPlease go Back and try again.');
           });
+      } else {
+        res.cookie('user', user.phone, signature);
+        res.redirect('/donate');
+      }
+    })
+    .catch((err) => {
+      res.send(err.message);
+    });
+});
+
+app.get('/login', (req, res) => {
+  res.render('login');
+});
+
+app.post('/login', (req, res) => {
+  debug(req.body);
+  userModel
+    .findOne({ email: req.body.email, password: req.body.password })
+    .then((user) => {
+      if (user == null) {
+        res.send('Login failure');
       } else {
         res.cookie('user', user.phone, signature);
         res.redirect('/donate');
@@ -211,13 +259,13 @@ app.get('/donate', (req, res) => {
         res.send(err.message);
       });
   } else {
-    res.redirect('/register');
+    res.redirect('/login');
   }
 });
 
 app.get('/bank', (req, res) => {
   if (req.signedCookies.user == null) {
-    res.redirect('/register');
+    res.redirect('/login');
     return;
   }
 

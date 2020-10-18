@@ -10,21 +10,15 @@
     />
     <title>BloodBank</title>
 
-	<head>
-		<meta charset="UTF-8">
-		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-		<meta http-equiv="X-UA-Compatible" content="ie=edge">
-		<meta name="Description"
-			content="Author: Nithya Rajendran, Purpose: I made this site as a larning project and will try and use react soon.">
-		<title>BloodBank</title>
     <!-- Compiled latest Css -->
-    <!-- <link rel="stylesheet" href="materialize.min.css" /> -->
+    <link rel="stylesheet" href="materialize.min.css" />
 
     <!--Import Google Icon Font-->
     <link href="icon.css" rel="stylesheet" />
 
     <link rel="stylesheet" href="admin.css" />
   </head>
+
   <body>
     <!-- <nav class="navbar navbar-expand-lg navbar-dark bg-danger">
   <a class="navbar-brand" href="#">Navbar</a>
@@ -47,16 +41,18 @@
       </div>
     </nav>
     <div class="login-form">
-      <form action="admin" method="post">
-        <h5 class="text-center">Admin</h5>
+      <form action="/login" method="POST" autocomplete="new-password">
+        <h5 class="text-center">User</h5>
         <h3 class="text-center">Log in</h3>
         <div class="form-group">
           <input
-            type="text"
+            type="email"
             class="form-control"
-            placeholder="Username"
+            placeholder="Email"
             required="required"
-            name="user"
+            id="email"
+            name="email"
+            class="validate"
           />
         </div>
         <div class="form-group">
@@ -65,16 +61,19 @@
             class="form-control"
             placeholder="Password"
             required="required"
+            id="password"
             name="password"
+            class="validate"
           />
         </div>
         <div class="form-group">
           <button type="submit" class="btn btn-danger btn-block">Log in</button>
         </div>
-        <!-- <div class="clearfix">
-                    <label class="float-left form-check-label"><input type="checkbox"> Remember me</label>
-                    <a href="#" class="float-right">Forgot Password?</a>
-                </div>         -->
+        <div class="clearfix">
+          <!-- <label class="float-left form-check-label"><input type="checkbox"> Remember me</label> -->
+          <span>Don't have an account?</span
+          ><a href="/register" class="float-right">Register</a>
+        </div>
       </form>
       <!-- <p class="text-center"><a href="#">Create an Account</a></p> -->
     </div>

@@ -36,6 +36,7 @@
 				<a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
 				<ul id="nav-mobile" class="right hide-on-med-and-down">
 					<li><a class="btn transparent" href="/donate">Blood Bank</a></li>
+					<li><a class="btn transparent" href="/adminlogout">Logout</a></li>
 					<!-- <li><a class="btn transparent" href="/bank">Search Donors</a></li> -->
 				</ul>
             </div>
@@ -63,6 +64,10 @@
 							<span class="col l6 m6 s6"><%= doc.city.substr(0,18) %></span>
 							<span class="col l6 m6 s6">Amount of blood </span>
 							<span class="col l6 m6 s6"><%= doc.amount %> Pint</span>
+							<span class="col l6 m6 s6">Email </span>
+							<span class="col l6 m6 s6"><%= doc.email %></span>
+							<span class="col l6 m6 s6">Phone </span>
+							<span class="col l6 m6 s6"><%= doc.phone %></span>
 						</div>
 					</div>
 					<div class="card-action">
