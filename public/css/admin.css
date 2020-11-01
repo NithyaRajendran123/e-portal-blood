@@ -48,3 +48,12 @@ nav .brand-logo {
 .mynav {
   background-color: red;
 }
+label {
+  color: white !important;
+}
+.edit-form {
+  padding: 5%;
+}
+input {
+  color: white;
+}

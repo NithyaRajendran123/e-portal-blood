@@ -127,6 +127,29 @@ app.get('/adminpanel/delete/:id', (req, res) => {
   res.redirect('/adminpanel');
 });
 
+app.post('/adminpanel/edit/:id', (req, res) => {
+  userModel.findByIdAndUpdate(req.params.id, req.body, function (err, docs) {
+    if (err) {
+      console.log(err);
+      res.send(err);
+    } else {
+      console.log('Updated User : ', docs);
+      res.redirect('/adminpanel');
+    }
+  });
+
+  // userModel.findOne({ phone: phone }, function (err, doc) {
+  //   if (err) {
+  //     res.redirect('/adminpanel');
+  //     throw err;
+  //   } else {
+  //     docs.push(doc);
+  //     res.render('adminedit', { doc: docs });
+  //   }
+  // });
+  // res.send(req.params.id);
+});
+
 app.get('/adminpanel/delete/:id', (req, res) => {
   userModel.findOneAndRemove(
     {
