@@ -58,7 +58,7 @@ app.get('/admin', (req, res) => {
     res.redirect('/adminpanel');
     return;
   }
-  res.render('admin');
+  res.render('admin', { invalid: false });
 });
 
 app.get('/adminlogout', (req, res) => {
@@ -71,12 +71,18 @@ app.post('/admin', (req, res) => {
     res.cookie('admin', 'admin', signature);
     res.redirect('/adminpanel');
     return;
+  } else {
+    res.render('admin', { invalid: true });
   }
-  res.send('invalid credentials');
+  // res.send('invalid credentials');
 });
 
 app.get('/adminpanel', (req, res) => {
   // res.render('admin.ejs');
+  if (!req.signedCookies.admin) {
+    res.redirect('/admin');
+    return;
+  }
   if (req.query.blood == undefined || req.query.blood == '')
     req.query.blood = '(A|B|O|AB)';
 

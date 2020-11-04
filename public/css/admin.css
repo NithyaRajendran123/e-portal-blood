@@ -38,6 +38,7 @@ nav .brand-logo {
   font-size: 2.1rem;
   padding: 0;
   top: -23%;
+  margin-top: 2%;
 }
 .btn.transparent {
   color: white;
@@ -56,4 +57,13 @@ label {
 }
 input {
   color: white;
+}
+i.material-icons:hover {
+  color: white !important;
+}
+.sidenav-trigger {
+  color: white !important;
+}
+.btn {
+  font-weight: normal;
 }

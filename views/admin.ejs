@@ -6,46 +6,41 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <meta
       name="Description"
-      content="Author: Rishav Rungta, Purpose: I made this site as a larning project and will try and use react soon."
+      content="Author: Nithya Rajendran, Purpose: I made this site as a learning project and will try and use react soon."
     />
     <title>BloodBank</title>
 
-	<head>
-		<meta charset="UTF-8">
-		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-		<meta http-equiv="X-UA-Compatible" content="ie=edge">
-		<meta name="Description"
-			content="Author: Nithya Rajendran, Purpose: I made this site as a larning project and will try and use react soon.">
-		<title>BloodBank</title>
     <!-- Compiled latest Css -->
-    <!-- <link rel="stylesheet" href="materialize.min.css" /> -->
+    <link rel="stylesheet" href="materialize.min.css" />
 
     <!--Import Google Icon Font-->
     <link href="icon.css" rel="stylesheet" />
 
+    <link rel="stylesheet" href="style.css" />
     <link rel="stylesheet" href="admin.css" />
   </head>
+
   <body>
-    <!-- <nav class="navbar navbar-expand-lg navbar-dark bg-danger">
-  <a class="navbar-brand" href="#">Navbar</a>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>
-  <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-  </div>
-</nav> -->
+    <!-- Nav -->
     <nav class="mynav">
       <div class="nav-wrapper container">
-        <img class="brand-logo" src="bbi-logo.png" alt="Universe" />
+        <a href="/"
+          ><img src="bbi-logo.png" alt="Universe" class="brand-logo"
+        /></a>
         <a href="#" data-target="mobile-demo" class="sidenav-trigger"
           ><i class="material-icons">menu</i></a
         >
         <ul id="nav-mobile" class="right hide-on-med-and-down">
-          <li><a class="btn transparent" href="/donate">Blood Bank</a></li>
-          <!-- <li><a class="btn transparent" href="/bank">Search Donors</a></li> -->
+          <li><a class="btn transparent" href="/login">User</a></li>
         </ul>
       </div>
     </nav>
+
+    <ul class="sidenav" id="mobile-demo">
+      <li><a class="btn red" href="/login">User</a></li>
+    </ul>
+
+    <!--Login Form-->
     <div class="login-form">
       <form action="admin" method="post">
         <h5 class="text-center">Admin</h5>
@@ -78,6 +73,8 @@
       </form>
       <!-- <p class="text-center"><a href="#">Create an Account</a></p> -->
     </div>
+    <!--Login Form Close-->
+
     <!--Import Font Awesome-->
     <link
       rel="stylesheet"
@@ -98,6 +95,12 @@
 
     <script src="jquery.min.js"></script>
     <script src="materialize.min.js"></script>
-    <!-- <script src="bank.js"></script> -->
+    <script src="bank.js"></script>
+
+    <% if(invalid){ %>
+    <script>
+      alert('Invalid Credentials');
+    </script>
+    <% }%>
   </body>
 </html>
