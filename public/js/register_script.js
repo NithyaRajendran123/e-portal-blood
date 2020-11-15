@@ -19,9 +19,9 @@ $.fn.ForceNumericOnly = function() {
   });
 };
 
-$('input').on('keyup', function() {
-  this.value = this.value.toUpperCase();
-});
+// $('input').on('keyup', function() {
+//   this.value = this.value.toUpperCase();
+// });
 
 $('#phone').ForceNumericOnly();
 
