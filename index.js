@@ -171,6 +171,19 @@ app.get('/adminpanel/delete/:id', (req, res) => {
   res.redirect('/adminpanel');
 });
 
+app.get('/adminpanel/approve/:id', (req, res) => {
+  const update = { approved: true };
+  userModel.findByIdAndUpdate(req.params.id, update, function (err, docs) {
+    if (err) {
+      console.log(err);
+      res.send(err);
+    } else {
+      console.log('Updated User : ', docs);
+      res.redirect('/adminpanel');
+    }
+  });
+});
+
 app.get('/register', (req, res) => {
   res.sendFile(path.join(__dirname, 'public/register.html'));
 });
@@ -190,17 +203,18 @@ app.post('/register', (req, res) => {
           password: req.body.password,
           amount: req.body.amount || 0,
           address: req.body.address,
+          approved: false,
         })
           .save()
           .then((user) => {
-            res.cookie('user', user.phone, signature);
+            // res.cookie('user', user.phone, signature);
             res.redirect('/donate');
           })
           .catch((err) => {
             res.send(err.message + '\nPlease go Back and try again.');
           });
       } else {
-        res.cookie('user', user.phone, signature);
+        // res.cookie('user', user.phone, signature);
         res.redirect('/donate');
       }
     })
@@ -220,9 +234,11 @@ app.post('/login', (req, res) => {
     .then((user) => {
       if (user == null) {
         res.send('Login failure');
-      } else {
+      } else if (user.approved) {
         res.cookie('user', user.phone, signature);
         res.redirect('/donate');
+      } else {
+        res.send('User not approved please contact admin');
       }
     })
     .catch((err) => {

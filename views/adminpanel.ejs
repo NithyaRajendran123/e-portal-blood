@@ -84,13 +84,24 @@
             </div>
           </div>
           <div class="card-action">
-            <a href="/adminpanel/delete/<%= doc.id %>" class="btn btn-danger"
-              ><i class="fa fa-trash" aria-hidden="true"></i> Delete</a
-            >
-            <a class="btn btn-danger right <%= doc.id %>"
-              ><i class="fas fa-edit"></i> Edit</a
-            >
+            <% if(doc.approved){ %>
+              <a href="/adminpanel/delete/<%= doc.id %>" class="btn btn-danger"
+                ><i class="fa fa-trash" aria-hidden="true"></i> Delete</a
+              >
+              <a class="btn btn-danger right <%= doc.id %>"
+                ><i class="fas fa-edit"></i> Edit</a
+              >
+            <% } else {%> 
+              <a href="/adminpanel/delete/<%= doc.id %>" class="btn btn-danger"
+                ><i class="fas fa-thumbs-down"></i> Reject</a
+              >
+              <a href="/adminpanel/approve/<%= doc.id %>" class="btn btn-danger right"
+                ><i class="fas fa-thumbs-up"></i> Approve</a
+              >
+            <% } %>
+            
             <script>
+              console.log('Doc: <%= doc.approved %>');
               $(document).ready(function () {
                 $('#<%= doc.id %>').hide();
               });
