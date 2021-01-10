@@ -203,19 +203,28 @@ app.post('/register', (req, res) => {
           password: req.body.password,
           amount: req.body.amount || 0,
           address: req.body.address,
+          donationStatus: req.body.donationStatus,
           approved: false,
         })
           .save()
           .then((user) => {
             // res.cookie('user', user.phone, signature);
-            res.redirect('/donate');
+            // res.redirect('/donate');
+            res.render('login', {
+              message:
+                'Before login, user need to be approved, please contact admin for approval',
+            });
           })
           .catch((err) => {
             res.send(err.message + '\nPlease go Back and try again.');
           });
       } else {
         // res.cookie('user', user.phone, signature);
-        res.redirect('/donate');
+        // res.redirect('/donate');
+        res.render('login', {
+          message:
+            'Before login, user need to be approved, please contact admin for approval',
+        });
       }
     })
     .catch((err) => {
@@ -224,7 +233,7 @@ app.post('/register', (req, res) => {
 });
 
 app.get('/login', (req, res) => {
-  res.render('login');
+  res.render('login', { message: null });
 });
 
 app.post('/login', (req, res) => {
@@ -233,12 +242,15 @@ app.post('/login', (req, res) => {
     .findOne({ email: req.body.email, password: req.body.password })
     .then((user) => {
       if (user == null) {
-        res.send('Login failure');
+        // res.json('Login failure');
+        res.render('login', { message: 'Login failed: Invalid credentials' });
       } else if (user.approved) {
         res.cookie('user', user.phone, signature);
         res.redirect('/donate');
       } else {
-        res.send('User not approved please contact admin');
+        res.render('login', {
+          message: 'Login failed: User not approved please contact admin',
+        });
       }
     })
     .catch((err) => {

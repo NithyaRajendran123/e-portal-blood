@@ -90,7 +90,11 @@
     </div>
 
     <!--Login Form Close-->
-
+    <% if(message){ %>
+    <div class="container">
+      <div class="alert alert-danger py-2" role="alert"><%= message %></div>
+    </div>
+    <% } %>
     <!--Import Font Awesome-->
     <link
       rel="stylesheet"

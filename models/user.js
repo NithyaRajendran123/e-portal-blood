@@ -63,6 +63,9 @@ var mySchema = new schema(
       type: String,
       required: true,
     },
+    donationStatus: {
+      type: String,
+    },
     approved: {
       type: Boolean,
     },
